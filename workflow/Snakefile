@@ -7,6 +7,7 @@ min_version("7.31.1")
 transcript_gtf = config["transcripts"]
 samples = config["samples"]
 ref_genome = config["ref_genome"]
+out_dir = config["out_dir"]
 
 rule all:
     input:
@@ -20,7 +21,7 @@ rule extract_cDNA:
         transcripts = os.path.join(out_dir, "gffread", "{sample}", "transcripts.fa")
     params:
         guide_fa = ref_genome
-    singularity:
+    container:
         "docker://quay.io/biocontainers/gffread:0.9.8--0",
     shell:
         """
@@ -31,14 +32,15 @@ rule extract_cDNA:
 rule extract_orfs:
     input:
         fasta = os.path.join(out_dir, "gffread", "{sample}", "transcripts.fa"),
+    params:
+        out_dir = os.path.join(out_dir, "transdecoder", "{sample}"),
     output:
         dat = os.path.join(out_dir, "transdecoder", "{sample}","transcripts.fa.transdecoder_dir", "base_freqs.dat"),
         cds = os.path.join(out_dir, "transdecoder", "{sample}", "transcripts.fa.transdecoder_dir", "longest_orfs.cds"),
         gff3 = os.path.join(out_dir, "transdecoder", "{sample}", "transcripts.fa.transdecoder_dir", "longest_orfs.gff3"),
         peps = os.path.join(out_dir, "transdecoder", "{sample}", "transcripts.fa.transdecoder_dir", "longest_orfs.pep")
-    params:
-        out_dir = os.path.join(out_dir, "transdecoder", "{sample}"),
-    singularity:
+
+    container:
         "docker://quay.io/biocontainers/transdecoder:5.7.1--pl5321hdfd78af_0"
     shell:
         "TransDecoder.LongOrfs -t {input.fasta} -O {params.out_dir}"
@@ -55,7 +57,7 @@ rule predict_cds:
         pep = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.pep"),
     params:
         out_dir = os.path.join(out_dir, "transdecoder", "{sample}"),
-    singularity:
+    container:
         "docker://quay.io/biocontainers/transdecoder:5.7.1--pl5321hdfd78af_0"
     shell:
         "TransDecoder.Predict -t {input.fasta} -O {params.out_dir} --single_best_only"
@@ -66,7 +68,7 @@ rule write_protein_fasta:
         pep = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.pep"),
     output:
         protein_fasta=os.path.join(out_dir, "proteome", "{sample}", "proteins.fa")
-    singularity:
+    container:
         "docker://quay.io/preskaa/biopython:v240911"
     script:
         "./scripts/write_fasta.py"

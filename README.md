@@ -1,7 +1,7 @@
 # Snakemake workflow: `transdecoder-smk`
 
-[![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/<owner>/<repo>/workflows/Tests/badge.svg?branch=main)](https://github.com/<owner>/<repo>/actions?query=branch%3Amain+workflow%3ATests)
+[![Snakemake](https://img.shields.io/badge/snakemake-≥7.31.1-brightgreen.svg)](https://snakemake.github.io)
+[![GitHub actions status](https://github.com/shahcompbio/transdecoder-smk/workflows/Tests/badge.svg?branch=main)](https://github.com/shahcompbio/transdecoder-smk/actions?query=branch%3Amain+workflow%3ATests)
 
 
 A Snakemake workflow for ORF prediction with transdecoder.
