@@ -49,7 +49,7 @@ rule extract_orfs:
 rule predict_cds:
     input:
         peps = os.path.join(out_dir, "transdecoder", "{sample}", "transcripts.fa.transdecoder_dir", "longest_orfs.pep"),
-        fasta = os.path.join(out_dir, "merged_cDNA", "{sample}", "transcripts.fa")
+        fasta = os.path.join(out_dir, "gffread", "{sample}", "transcripts.fa")
     output:
         bed = os.path.join(out_dir, "transdecoder", "{sample}","transcripts.fa.transdecoder.bed"),
         cds = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.cds"),
