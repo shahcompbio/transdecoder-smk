@@ -1,0 +1,5 @@
+samples: ["GTEx"] # sample names
+outdir: /data1/shahs3/users/preskaa/AMLproteogenomics/data/APS028_AML_PG2_analysis/GTEx_ORFs
+ref_genome: /data1/shahs3/reference/ref-sarcoma/GTEx_v9/GRCh38.p10.genome.fa
+transcripts: /data1/shahs3/reference/ref-sarcoma/GTEx_v9/flair_filter_transcripts.gtf
+
