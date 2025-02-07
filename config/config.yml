@@ -5,5 +5,5 @@ transcripts: /data1/shahs3/reference/ref-sarcoma/GTEx_v9/flair_filter_transcript
 # swissprot fasta for use to blast against; will allow us to include potentially important proteins that showed up in the transdecoder search
 swissprot_fasta: /data1/shahs3/reference/ref-sarcoma/blast_databases/swissprot_human_250206/2025-02-06-reviewed-isoforms-UP000005640.fas
 # directory for diamond blast database
-diamond_database_dir: /data1/shahs3/reference/ref-sarcoma/blast_databases/swissprot_human_250206/
+diamond_db_dir: /data1/shahs3/reference/ref-sarcoma/blast_databases/swissprot_human_250206/
 diamond_db_prefix: 2025-02-06-reviewed-isoforms-UP000005640

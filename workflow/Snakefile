@@ -9,8 +9,8 @@ samples = config["samples"]
 ref_genome = config["ref_genome"]
 out_dir = config["out_dir"]
 sp_fasta = config["swissprot_fasta"]
-diamond_dir = config["diamond_database_dir"]
-diamond_db_prefix = config["diamond_database_prefix"]
+diamond_dir = config["diamond_db_dir"]
+diamond_db_prefix = config["diamond_db_prefix"]
 
 rule all:
     input:
