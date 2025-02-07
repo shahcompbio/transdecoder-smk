@@ -59,6 +59,11 @@ rule prep_diamond_db:
         db_name = diamond_db_prefix
     output:
         sp_db = os.path.join(diamond_dir, diamond_db_prefix+".dmnd")
+    resources:
+        mem_mb = 50000,
+        time = 20,
+        partition = "cpushort"
+    threads: 4
     container:
         "docker://quay.io/biocontainers/diamond:2.1.11--h5ca1c30_0"
     shell:
@@ -76,6 +81,10 @@ rule run_diamond_blast:
         db_name = diamond_db_prefix
     container:
         "docker://quay.io/biocontainers/diamond:2.1.11--h5ca1c30_0"
+    resources:
+        mem_mb = 50000,
+        time = 20,
+        partition = "cpushort"
     threads: 10
     shell:
         """
