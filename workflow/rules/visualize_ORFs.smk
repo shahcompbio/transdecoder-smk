@@ -7,7 +7,7 @@ rule gtf2bed:
     container:
         "docker://quay.io/biocontainers/transdecoder:5.7.1--pl5321hdfd78af_0"
     shell:
-        "gtf_to_bed.pl {input.gtf} {output.bed}"
+        "gtf_to_bed.pl {input.gtf} > {output.bed}"
 # convert the predictions to a bed file as well
 rule gff3tobed:
     input:
