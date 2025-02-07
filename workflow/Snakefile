@@ -14,8 +14,7 @@ diamond_db_prefix = config["diamond_db_prefix"]
 
 rule all:
     input:
-        # expand(os.path.join(out_dir, "proteome", "{sample}", "proteins.fa"), sample=samples)
-        expand(os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.pep"), sample=samples)
+        expand(os.path.join(out_dir, "proteome", "{sample}", "proteins.fa"), sample=samples)
 
 # extract cDNA from transcripts
 rule extract_cDNA:
@@ -119,12 +118,16 @@ rule predict_cds:
         """
 
 # write protein fasta
-rule write_protein_fasta:
+rule generate_proteome:
     input:
-        pep = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.pep"),
+        fasta = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.pep"),
+    params:
+        gtf = transcript_gtf,
+        sp_fasta = sp_fasta,
     output:
-        protein_fasta=os.path.join(out_dir, "proteome", "{sample}", "proteins.fa")
+        protein_fasta = os.path.join(out_dir, "proteome", "{sample}", "proteins.fa"),
+        protein_tsv = os.path.join(out_dir, "proteome", "{sample}", "protein_transcript_info.tsv")
     container:
         "docker://quay.io/preskaa/biopython:v240911"
     script:
-        "./scripts/write_fasta.py"
+        "./scripts/generate_proteome.py"
