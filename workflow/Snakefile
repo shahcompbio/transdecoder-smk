@@ -78,7 +78,7 @@ rule run_diamond_blast:
         peps = os.path.join(out_dir,"transdecoder","{sample}","transcripts.fa.transdecoder_dir","longest_orfs.pep"),
         sp_db = os.path.join(diamond_dir, diamond_db_prefix+".dmnd")
     output:
-        diamond_out = os.path.join(out_dir,"diamond_blast","{sample}","blastp.outfmt6"),
+        diamond_out = os.path.join(out_dir,"diamond_blast","{sample}","blastp.tsv"),
     params:
         diamond_dir = diamond_dir,
         db_name = diamond_db_prefix
@@ -92,7 +92,7 @@ rule run_diamond_blast:
     shell:
         """
         diamond blastp --db {input.sp_db} --query {input.peps} \
-        --max-target-seqs 1 -outfmt 6 \
+        --max-target-seqs 1 --outfmt 6 \
         --evalue 1e-5 --threads 20 --out {output.diamond_out}
         """
 
@@ -102,7 +102,7 @@ rule predict_cds:
     input:
         peps = os.path.join(out_dir, "transdecoder", "{sample}", "transcripts.fa.transdecoder_dir", "longest_orfs.pep"),
         fasta = os.path.join(out_dir, "gffread", "{sample}", "transcripts.fa"),
-        diamond_blast= os.path.join(out_dir,"diamond_blast","{sample}","blastp.outfmt6")
+        diamond_blast= os.path.join(out_dir,"diamond_blast","{sample}","blastp.tsv")
     output:
         bed = os.path.join(out_dir, "transdecoder", "{sample}","transcripts.fa.transdecoder.bed"),
         cds = os.path.join(out_dir,"transdecoder", "{sample}","transcripts.fa.transdecoder.cds"),
