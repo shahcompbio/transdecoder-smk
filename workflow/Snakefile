@@ -128,6 +128,6 @@ rule generate_proteome:
         protein_fasta = os.path.join(out_dir, "proteome", "{sample}", "proteins.fa"),
         protein_tsv = os.path.join(out_dir, "proteome", "{sample}", "protein_transcript_info.tsv")
     container:
-        "docker://quay.io/preskaa/biopython:v240911"
+        "docker://quay.io/preskaa/biopython:v241011a"
     script:
         "./scripts/generate_proteome.py"
