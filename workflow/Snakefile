@@ -15,7 +15,7 @@ diamond_db_prefix = config["diamond_db_prefix"]
 rule all:
     input:
         # expand(os.path.join(out_dir, "proteome", "{sample}", "proteins.fa"), sample=samples)
-        expand(os.path.join(out_dir,"diamond_blast","{sample}","blastp.outfmt6"), sample=samples)
+        expand(os.path.join(out_dir,"diamond_blast","{sample}","blastp.tsv"), sample=samples)
 
 # extract cDNA from transcripts
 rule extract_cDNA:
