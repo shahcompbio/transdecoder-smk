@@ -94,7 +94,7 @@ rule predict_cds:
     shell:
         """
         TransDecoder.Predict -t {input.fasta} -O {params.out_dir} \
-        --retain_blastp_hits {input.diamond_blast} --single_best_only
+        --retain_blastp_hits {input.diamond_blast}
         """
 
 # write protein fasta
@@ -110,4 +110,4 @@ rule generate_proteome:
     container:
         "docker://quay.io/preskaa/biopython:v241011a"
     script:
-        "./scripts/generate_proteome.py"
+        "../scripts/generate_proteome.py"
