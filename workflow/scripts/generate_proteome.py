@@ -111,7 +111,6 @@ with open(output_file, "w+") as outfile:
         outfile.write(f"{row['seq']}\n")
         # save to create index table
         tx_ids.append(tx_id)
-        protein_ids.append(protein_id)
         ORF_ids.append(ORF_id)
         gene_ids.append(gene)
         og_headers.append(header)
