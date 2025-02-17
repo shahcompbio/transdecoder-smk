@@ -79,7 +79,7 @@ gene_ids = []
 og_headers = []
 sp_status = []
 ### proteoform count for novel proteoforms (with PG accession numbers)
-count = 0
+count = 1
 with open(output_file, "w+") as outfile:
     for _, row in mergedat.iterrows():
         header = row["header_trans"]
@@ -95,13 +95,15 @@ with open(output_file, "w+") as outfile:
             # retain protein id
             temp = sp_header.split("|")
             protein_id = temp[1]
+            protein_ids.append(protein_id)
             sp_status.append(True)
         # if it's a newly predicted ORF give it a trembl header (kind of)
         else:
             new_header = f">tr|PG{count}|{ORF_id} PG3 predicted ORF OS=Homo sapiens OX=9606 GN={gene} PE=2\n"
-            count = count + 1
             # give unique protein id
             protein_id = f"PG{count}"
+            protein_ids.append(protein_id)
+            count = count + 1
             # determined not to have an exact match in swissprot
             sp_status.append(False)
             outfile.write(new_header)
